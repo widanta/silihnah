@@ -1,5 +1,7 @@
 <?php
 include '../../functions/connect.php';
+$title = 'Dashboard Admin';
+
 ?>
 <?php include('../templates/header.php'); ?>
 

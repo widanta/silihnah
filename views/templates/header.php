@@ -11,7 +11,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="<?= BASE_URL; ?>/assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Silihnah - Dashboard</title>
+    <title><?= isset($title) ? 'Silihnah - ' . $title : 'Silihnah'; ?></title>
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/vendors/simplebar.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/examples.css">
