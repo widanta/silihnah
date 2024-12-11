@@ -29,9 +29,11 @@ class Connect
             $data = $query->fetch_assoc();
             if (password_verify($password, $data['password'])) {
                 $_SESSION['user'] = [
+                    'id_user' => $data['id_user'],
+                    'username' => $data['username'],
                     'email' => $data['email'],
                     'password' => $data['password'],
-                    'id_role' => $data['id_role'],
+                    'id_role' => $data['id_role']
                 ];
 
                 if ($_SESSION['user']['id_role'] == "1" || $_SESSION['user']['id_role'] == "2") {

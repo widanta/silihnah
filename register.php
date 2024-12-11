@@ -4,6 +4,7 @@ $conn = new Connect();
 
 if (isset($_POST['submit'])) {
     $conn->registerMahasiswa($_POST['username'], $_POST['email'], $_POST['password'], $_POST['passwordConfirm']);
+    header('Location: login.php');
 }
 ?>
 
