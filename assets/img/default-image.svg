@@ -1,0 +1,9 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="200" height="200" fill="#EEEEEE"/>
+<mask id="path-2-inside-1_215_298" fill="white">
+<rect x="40" y="52" width="120" height="95" rx="8"/>
+</mask>
+<rect x="40" y="52" width="120" height="95" rx="8" stroke="#BABEC1" stroke-width="20" mask="url(#path-2-inside-1_215_298)"/>
+<path d="M137 105V127H63L88 100.5L98.0001 112L120.5 86L137 105Z" fill="#BABEC1"/>
+<circle cx="74.5" cy="85.5" r="11.5" fill="#BABEC1"/>
+</svg>
