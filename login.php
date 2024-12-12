@@ -17,10 +17,11 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/examples.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/main.css">
-    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/fontawesome.css" />
-    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/brands.css" />
-    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/solid.css" />
-    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/regular.css" />
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/regular.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/solid.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/brands.min.css">
     <title>Silihnah - Login</title>
 </head>
 
@@ -30,7 +31,7 @@ if (isset($_POST['submit'])) {
             <div class="box-container">
                 <div class="row justify-content-between">
                     <div class="col-xl-7 col-md-7 d-flex justify-content-center align-items-center">
-                        <img src="<?= BASE_URL; ?>/assets/img/login-admin.svg" alt="" class="img-login" />
+                        <img src="<?= BASE_URL; ?>/assets/img/login.svg" alt="" class="img-login" />
                     </div>
                     <div class="col-xl-5 col-md-5 d-flex justify-content-center align-items-center">
                         <div class="container-input">
@@ -40,7 +41,7 @@ if (isset($_POST['submit'])) {
                                         <div class="input-group mb-3">
                                             <input type="email" class="form-control" placeholder="Email" name="email" required />
                                             <span class="input-group-text email-icon-container">
-                                                <i class="fa-solid fa-user"></i>
+                                                <i class="fa-regular fa-user"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -85,6 +86,8 @@ if (isset($_POST['submit'])) {
     </section>
 </body>
 
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var showHidePassword = document.getElementById('show_hide_password');
@@ -109,5 +112,6 @@ if (isset($_POST['submit'])) {
 </script>
 <script src="<?= BASE_URL; ?>/assets/vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
 <script src="<?= BASE_URL; ?>/assets/js/main.js"></script>
+
 
 </html>

@@ -12,16 +12,6 @@ body {
     align-items: center;
 }
 
-/* .container-input {
-    background-color: white;
-    border-radius: 10px;
-}
-
-.img-login {
-    width: 800px;
-    height: 800px;
-} */
-
 #centered-element {
     width: 100%;
     min-height: 100vh;
@@ -58,12 +48,14 @@ body {
     right: 18px;
 }
 
-.email-icon-container {
-    width: 46px;
+.email-icon-container,
+.password-icon-container {
+    width: 46px !important;
 }
 
-.email-icon-container i {
-    margin: 0px auto;
+.email-icon-container i,
+.password-icon-container i {
+    margin: 0px auto !important;
 }
 
 .password-icon-container {
