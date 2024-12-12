@@ -75,6 +75,7 @@ class petugas extends Connect
 
     public function edit($data)
     {
+        $id_user = $data['id_user'];
         $id_petugas = $data['id_petugas'];
         $nama = $data['nama'];
         $telpon = $data['telpon'];
@@ -82,7 +83,7 @@ class petugas extends Connect
         $tanggal_lahir = $data['tanggal_lahir'];
         $alamat = $data['alamat'];
         $agama = $data['agama'];
-        $query = "UPDATE petugas SET nama = '$nama', telpon = '$telpon', jenis_kelamin = '$jenis_kelamin', tanggal_lahir = '$tanggal_lahir', alamat = '$alamat', agama = '$agama' WHERE id_petugas = '$id_petugas'";
+        $query = "UPDATE petugas SET id_user = '$id_user', nama = '$nama', telpon = '$telpon', jenis_kelamin = '$jenis_kelamin', tanggal_lahir = '$tanggal_lahir', alamat = '$alamat', agama = '$agama' WHERE id_petugas = '$id_petugas'";
         mysqli_query($this->conn, $query);
         return mysqli_affected_rows($this->conn);
     }
@@ -90,6 +91,17 @@ class petugas extends Connect
     public function getAllData()
     {
         $query = "SELECT * FROM user";
+        $result = mysqli_query($this->conn, $query);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
+    public function getAllDataPetugas()
+    {
+        $query = "SELECT * FROM petugas";
         $result = mysqli_query($this->conn, $query);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
