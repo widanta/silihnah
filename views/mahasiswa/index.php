@@ -1,8 +1,8 @@
 <?php
-include '../functions/connect.php';
+include '../../functions/connect.php';
 ?>
 
-<?php include('templates/header.php'); ?>
+<?php include('../templates/header.php'); ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6 col-lg-3">
@@ -110,4 +110,4 @@ include '../functions/connect.php';
 
     </div>
 </div>
-<?php include('templates/footer.php'); ?>
+<?php include('../templates/footer.php'); ?>

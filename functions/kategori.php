@@ -30,7 +30,7 @@ class Kategori extends Connect
         return mysqli_affected_rows($this->conn);
     }
 
-    public function getAlldata()
+    public function getAllData()
     {
         $query = "SELECT * FROM kategori";
         $result = mysqli_query($this->conn, $query);
@@ -40,4 +40,6 @@ class Kategori extends Connect
         }
         return $data;
     }
+
+    
 }

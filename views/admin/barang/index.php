@@ -1,14 +1,15 @@
 <?php
-include '../../../functions/kategori.php';
-$kategori = new Kategori();
-$data = $kategori->getAllData();
+include '../../../functions/barang.php';
+$barang = new Barang();
+$dataKategori = $barang->getDataKategori();
+$data = $barang->getAllDataJoin();
 
-$title = 'Kategori';
+$title = 'Barang';
 
 if (isset($_POST['submitCreate'])) {
-    $kategori->create($_POST);
+    $barang->create($_POST);
 
-    if ($kategori) {
+    if ($barang) {
         echo "
         <script>
             alert('data berhasil ditambahkan');
@@ -26,9 +27,9 @@ if (isset($_POST['submitCreate'])) {
 }
 
 if (isset($_POST['submitEdit'])) {
-    $kategori->edit($_POST);
+    $barang->edit($_POST);
 
-    if ($kategori) {
+    if ($barang) {
         echo "
         <script>
             alert('data berhasil diubah');
@@ -46,9 +47,9 @@ if (isset($_POST['submitEdit'])) {
 }
 
 if (isset($_POST['submitDelete'])) {
-    $kategori->delete($_POST);
+    $barang->delete($_POST);
 
-    if ($kategori) {
+    if ($barang) {
         echo "
         <script>
             alert('data berhasil dihapus');
@@ -72,7 +73,7 @@ if (isset($_POST['submitDelete'])) {
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col">
-            <h3>Kategori</h3>
+            <h3>Barang</h3>
         </div>
         <div class="col text-end">
             <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#createModal">
@@ -86,7 +87,7 @@ if (isset($_POST['submitDelete'])) {
         <thead class="table-dark">
             <tr>
                 <th>Nomor</th>
-                <th>Id_kategori</th>
+                <th>Id_barang</th>
                 <th>Nama</th>
                 <th>Deskripsi</th>
                 <th>Aksi</th>
@@ -97,14 +98,14 @@ if (isset($_POST['submitDelete'])) {
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $row['id_kategori'] ?></td>
+                    <td><?= $row['id_barang'] ?></td>
                     <td><?= $row['nama'] ?></td>
                     <td><?= $row['deskripsi'] ?></td>
                     <td>
-                        <button type="button" class="btn btn-warning text-dark" data-coreui-toggle="modal" data-coreui-target="#editModal<?= $row['id_kategori'] ?>">
+                        <button type="button" class="btn btn-warning text-dark" data-coreui-toggle="modal" data-coreui-target="#editModal<?= $row['id_barang'] ?>">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </button>
-                        <button type="button" class="btn btn-danger text-light" data-coreui-toggle="modal" data-coreui-target="#deleteModel<?= $row['id_kategori'] ?>">
+                        <button type="button" class="btn btn-danger text-light" data-coreui-toggle="modal" data-coreui-target="#deleteModel<?= $row['id_barang'] ?>">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </td>
@@ -120,17 +121,35 @@ if (isset($_POST['submitDelete'])) {
             <div class="modal-content">
                 <form action="" method="post">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="createModal">Tambah Data kategori</h1>
+                        <h1 class="modal-title fs-5" id="createModal">Tambah Data Barang</h1>
                         <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama kategori</label>
+                            <label for="nama" class="form-label">Nama barang</label>
                             <input type="text" class="form-control" id="nama" name="nama">
                         </div>
                         <div class="mb-3">
-                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                            <label for="stok" class="form-label">Stok barang</label>
+                            <input type="number" class="form-control" id="stok" name="stok">
+                        </div>
+                        <div class="mb-3">
+                            <label for="waktu" class="form-label">Waktu</label>
+                            <input type="date" class="form-control" id="waktu" name="waktu">
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_kategori" class="form-label">Kategori</label>
+                            <select class="form-select" id="id_kategori" name="id_kategori">
+                                <option selected>Pilih kategori</option>
+                                <?php foreach ($dataKategori as $row) : ?>
+                                    <option value="<?= $row['id_kategori'] ?>"><?= $no++ ?> - <?= $row['nama'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_petugas" class="form-label">Petugas</label>
+                            <input type="hidden" class="form-control" id="id_petugas" name="id_petugas" value="<?= $_SESSION['user']['id_user']; ?>">
+                            <input type="text" class="form-control" value="<?= $_SESSION['user']['username']; ?>" readonly>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
@@ -144,18 +163,18 @@ if (isset($_POST['submitDelete'])) {
 
     <!-- ============== Modal edit ============== -->
     <?php foreach ($data as $row) : ?>
-        <div class="modal fade" id="editModal<?= $row['id_kategori'] ?>" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal fade" id="editModal<?= $row['id_barang'] ?>" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="" method="post">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editModal">Edit Data kategori</h1>
+                            <h1 class="modal-title fs-5" id="editModal">Edit Data barang</h1>
                             <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_kategori" value="<?= $row['id_kategori'] ?>">
+                            <input type="hidden" name="id_barang" value="<?= $row['id_barang'] ?>">
                             <div class="mb-3">
-                                <label for="nama" class="form-label">Nama kategori</label>
+                                <label for="nama" class="form-label">Nama barang</label>
                                 <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama'] ?>">
                             </div>
                             <div class="mb-3">
@@ -176,16 +195,16 @@ if (isset($_POST['submitDelete'])) {
 
     <!-- ============== Modal hapus ============== -->
     <?php foreach ($data as $row) : ?>
-        <div class="modal fade" id="deleteModel<?= $row['id_kategori'] ?>" tabindex="-1" aria-labelledby="deleteModel" aria-hidden="true">
+        <div class="modal fade" id="deleteModel<?= $row['id_barang'] ?>" tabindex="-1" aria-labelledby="deleteModel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="" method="post">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="deleteModel">Hapus Data kategori</h1>
+                            <h1 class="modal-title fs-5" id="deleteModel">Hapus Data barang</h1>
                             <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_kategori" value="<?= $row['id_kategori'] ?>">
+                            <input type="hidden" name="id_barang" value="<?= $row['id_barang'] ?>">
                             Apakah anda yakin ingin menghapus data ini?
                         </div>
                         <div class="modal-footer d-flex justify-content-between">

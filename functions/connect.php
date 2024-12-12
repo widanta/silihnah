@@ -38,9 +38,9 @@ class Connect
 
                 if ($_SESSION['user']['id_role'] == "1" || $_SESSION['user']['id_role'] == "2") {
                     $_SESSION['id_user'] = $data['id_user'];
-                    header("Location: views/admin/dashboard.php");
+                    header("Location: views/admin/");
                 } else {
-                    header("Location: views/dashboard.php");
+                    header("Location: views/mahasiswa/");
                 }
             } else {
                 echo "
@@ -81,6 +81,12 @@ class Connect
 
         $password = password_hash($password, PASSWORD_DEFAULT);
         mysqli_query($this->conn, "INSERT INTO user VALUES(NULL,'$username','$email','$password',3)");
+
+        $lastUser = mysqli_query($this->conn, "SELECT id_user FROM user where username = '$username'");
+        $dataLastUserResult = mysqli_fetch_assoc($lastUser);
+        $dataLastUserId = $dataLastUserResult['id_user'];
+
+        mysqli_query($this->conn, "INSERT INTO mahasiswa VALUES(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'$dataLastUserId')");
         return mysqli_affected_rows($this->conn);
     }
 }
