@@ -19,14 +19,6 @@ class Mahasiswa extends Connect
         return mysqli_affected_rows($this->conn);
     }
 
-    public function delete($data)
-    {
-        $id = $data['id_mahasiswa'];
-        $query = "DELETE FROM mahasiswa WHERE id_mahasiswa = '$id' ";
-        mysqli_query($this->conn, $query);
-        return mysqli_affected_rows($this->conn);
-    }
-
     public function getDataByUserId($id)
     {
         $query = "SELECT * FROM mahasiswa Where id_user = '$id'";
