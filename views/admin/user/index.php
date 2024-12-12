@@ -27,7 +27,7 @@ if (isset($_POST['submitCreate'])) {
 }
 
 if (isset($_POST['submitEdit'])) {
-    $petugas->edit($_POST);
+    $petugas->editUser($_POST['username'], $_POST['email'], $_POST['password'], $_POST['passwordConfirm'], $_POST['id_role'], $_POST['id_user']);
 
     if ($petugas) {
         echo "
@@ -46,25 +46,25 @@ if (isset($_POST['submitEdit'])) {
     }
 }
 
-// if (isset($_POST['submitDelete'])) {
-//     $petugas->delete($_POST);
+if (isset($_POST['submitDelete'])) {
+    $petugas->deleteUser($_POST);
 
-//     if ($petugas) {
-//         echo "
-//         <script>
-//             alert('data berhasil dihapus');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     } else {
-//         echo "
-//         <script>
-//             alert('data gagal dihapus');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     }
-// }
+    if ($petugas) {
+        echo "
+        <script>
+            alert('data berhasil dihapus');
+            document.location.href = 'index.php';
+        </script>
+        ";
+    } else {
+        echo "
+        <script>
+            alert('data gagal dihapus');
+            document.location.href = 'index.php';
+        </script>
+        ";
+    }
+}
 
 ?>
 
@@ -127,45 +127,53 @@ if (isset($_POST['submitEdit'])) {
                         <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="username" class="form-label">username</label>
-                            <input type="text" class="form-control" placeholder="username" name="username" required />
-                            <span class="input-group-text email-icon-container">
-                                <i class="fa-regular fa-user"></i>
-                            </span>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="username" name="username" required />
+                                <span class="input-group-text email-icon-container">
+                                    <i class="fa-regular fa-user"></i>
+                                </span>
+                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email" required />
-                            <span class="input-group-text email-icon-container">
-                                <i class="fa-regular fa-user"></i>
-                            </span>
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Email" name="email" required />
+                                <span class="input-group-text email-icon-container">
+                                    <i class="fa-regular fa-user"></i>
+                                </span>
+                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class=" mb-3">
                             <label for="password" class="form-label">password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password" required />
-                            <span class="input-group-text password-icon-container">
-                                <i class="fa-solid fa-eye-slash"></i>
-                            </span>
+                            <div class="input-group" id="show_hide_password_1">
+                                <input type="password" class="form-control" placeholder="Password" name="password" required />
+                                <span class="input-group-text password-icon-container">
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="passwordConfirm" class="form-label">passwordConfirm</label>
-                            <input type="password" class="form-control" placeholder="passwordConfirm" name="passwordConfirm" required />
-                            <span class="input-group-text password-icon-container">
-                                <i class="fa-solid fa-eye-slash"></i>
-                            </span>
+                            <div class="input-group" id="show_hide_password_2">
+                                <input type="password" class="form-control" placeholder="passwordConfirm" name="passwordConfirm" required />
+                                <span class="input-group-text password-icon-container">
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="id_role" class="form-label">Role</label>
                             <select class="form-select" id="id_role" name="id_role">
                                 <option selected>Pilih Role</option>
-                                <?php foreach ($dataRole as $row) : ?>
-                                    <option value="<?= $row['id_role'] ?>"> <?= $row['nama'] ?></option>
+                                <?php $no_urut = 1;
+                                foreach ($dataRole as $row) : ?>
+                                    <option value="<?= $row['id_role'] ?>"><?= $no_urut++; ?> - <?= $row['nama'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
-
                     <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>
                         <button type="submit" name="submitCreate" class="btn btn-primary">Tambah</button>
@@ -177,7 +185,7 @@ if (isset($_POST['submitEdit'])) {
 
     <!-- ============== Modal edit ============== -->
     <?php foreach ($data as $row) : ?>
-        <div class="modal fade" id="editModal<?= $row['id_petugas'] ?>" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal fade" id="editModal<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="" method="post">
@@ -186,16 +194,42 @@ if (isset($_POST['submitEdit'])) {
                             <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_petugas" value="<?= $row['id_petugas'] ?>">
-                            <div class="mb-3">
-                                <label for="nama" class="form-label">Nama petugas</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama'] ?>">
+                            <input type="hidden" name="id_user" value="<?= $row['id_user']; ?>">
+                            <div class=" mb-3">
+                                <label for="username" class="form-label">username</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="username" name="username" value="<?= $row['username']; ?>" required />
+                                    <span class="input-group-text email-icon-container">
+                                        <i class="fa-regular fa-user"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"><?= $row['deskripsi'] ?>
-                                </textarea>
+                            <div class=" mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?= $row['email']; ?>" required />
+                                    <span class="input-group-text email-icon-container">
+                                        <i class="fa-regular fa-user"></i>
+                                    </span>
+                                </div>
                             </div>
+                            <input type="hidden" class="form-control" placeholder="Password" name="password" value="<?= $row['password']; ?>" required />
+                            <input type="hidden" class="form-control" placeholder="passwordConfirm" name="passwordConfirm" value="<?= $row['password']; ?>" required />
+                            <div class="mb-3">
+                                <label for="id_role" class="form-label">Role</label>
+                                <select class="form-select" id="id_role" name="id_role">
+                                    <option selected value="<?= $row['id_role']; ?>"><?= $row['id_role']; ?></option>
+                                    <?php
+                                    foreach ($dataRole as $role) :
+                                        if ($role['id_role'] != $row['id_role']) {
+                                            echo "<option value=\"{$role['id_role']}\"> {$role['nama']}</option>";
+                                        }
+                                    endforeach;
+                                    ?>
+                                </select>
+                            </div>
+
+
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>
@@ -209,17 +243,17 @@ if (isset($_POST['submitEdit'])) {
 
     <!-- ============== Modal hapus ============== -->
     <?php foreach ($data as $row) : ?>
-        <div class="modal fade" id="deleteModel<?= $row['id_petugas'] ?>" tabindex="-1" aria-labelledby="deleteModel" aria-hidden="true">
+        <div class="modal fade" id="deleteModel<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="deleteModel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="" method="post">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="deleteModel">Hapus Data petugas</h1>
+                            <h1 class="modal-title fs-5" id="deleteModel">Hapus Data User</h1>
                             <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_petugas" value="<?= $row['id_petugas'] ?>">
-                            Apakah anda yakin ingin menghapus data ini?
+                            <input type="hidden" name="id_user" value="<?= $row['id_user'] ?>">
+                            Apakah anda yakin ingin menghapus data ini? <b><?= $row['email']; ?></b>
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>

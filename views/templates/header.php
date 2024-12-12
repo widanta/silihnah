@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/vendors/simplebar.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/examples.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/main.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/vendors/simplebar/css/simplebar.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/all.min.css">

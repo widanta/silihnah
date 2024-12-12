@@ -43,6 +43,36 @@ class petugas extends Connect
         return mysqli_affected_rows($this->conn);
     }
 
+    public function editUser($username, $email, $password, $idRole, $idUser)
+    {
+        $username = strtolower(stripslashes($_POST["username"]));
+        $email = strtolower(stripslashes($_POST["email"]));
+        $password = mysqli_real_escape_string($this->conn, $_POST["password"]);
+        $password2 = mysqli_real_escape_string($this->conn, $_POST["passwordConfirm"]);
+        $idRole = $_POST["id_role"];
+        $idUser = $_POST["id_user"];
+
+        if ($password !== $password2) {
+            echo "
+            <script>
+                alert('password salah');
+            </script>
+            ";
+            return false;
+        }
+        $query = "UPDATE user SET username = '$username', email = '$email', password = '$password', id_role = '$idRole' WHERE id_user = '$idUser'";
+        mysqli_query($this->conn, $query);
+        return mysqli_affected_rows($this->conn);
+    }
+
+    public function deleteUser($data)
+    {
+        $id = $data['id_user'];
+        $query = "DELETE FROM user WHERE id_user = '$id' ";
+        mysqli_query($this->conn, $query);
+        return mysqli_affected_rows($this->conn);
+    }
+
     public function edit($data)
     {
         $id_petugas = $data['id_petugas'];
@@ -68,9 +98,10 @@ class petugas extends Connect
         return $data;
     }
 
+    // kecuali role mahasiswa
     public function getDataRole()
     {
-        $query = "SELECT * FROM role";
+        $query = "SELECT * FROM role WHERE id_role != 3;";
         $result = mysqli_query($this->conn, $query);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
