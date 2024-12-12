@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/css/examples.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/vendors/simplebar/css/simplebar.css">
     <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/regular.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/solid.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>/assets/fontawesome/css/brands.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
