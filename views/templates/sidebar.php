@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/kategori/">
                         <div class="nav-icon d-flex justify-content-center align-item-center">
                             <i class="fa-solid fa-box-archive"></i>
                         </div> Kategori
@@ -66,7 +66,7 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/role">
+            <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/role/">
                 <div class="nav-icon d-flex justify-content-center align-item-center">
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
