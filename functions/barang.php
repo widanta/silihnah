@@ -49,12 +49,24 @@ class barang extends Connect
 
     public function getAllDataJoin()
     {
-        $query = "SELECT * FROM barang JOIN kategori ON barang.id_kategori = kategori.id_kategori JOIN petugas ON barang.id_petugas = petugas.id_petugas";
+        $query = "SELECT barang.id_barang, barang.nama as nama_barang, barang.stok, barang.waktu, kategori.id_kategori, kategori.nama as nama_kategori, kategori.deskripsi, petugas.id_petugas, petugas.nama as nama_petugas FROM barang JOIN kategori ON barang.id_kategori = kategori.id_kategori JOIN petugas ON barang.id_petugas = petugas.id_petugas";
         $result = mysqli_query($this->conn, $query);
         $data = [];
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
         return $data;
+    }
+
+    public function getDataByUserId($id)
+    {
+        $query = "SELECT * FROM petugas Where id_user = '$id'";
+        $result = $this->conn->query($query);
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
     }
 }

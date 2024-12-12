@@ -3,10 +3,12 @@ include '../../../functions/barang.php';
 $barang = new Barang();
 $dataKategori = $barang->getDataKategori();
 $data = $barang->getAllDataJoin();
-
+$dataPetugas = $barang->getDataByUserId($_SESSION['user']['id_user']);
 $title = 'Barang';
 
 if (isset($_POST['submitCreate'])) {
+    // var_dump($_POST);
+    // die;
     $barang->create($_POST);
 
     if ($barang) {
@@ -88,8 +90,11 @@ if (isset($_POST['submitDelete'])) {
             <tr>
                 <th>Nomor</th>
                 <th>Id_barang</th>
-                <th>Nama</th>
-                <th>Deskripsi</th>
+                <th>Nama Barang</th>
+                <th>Kategori</th>
+                <th>Stok</th>
+                <th>Waktu Input</th>
+                <th>Petugas</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -99,8 +104,11 @@ if (isset($_POST['submitDelete'])) {
                 <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $row['id_barang'] ?></td>
-                    <td><?= $row['nama'] ?></td>
-                    <td><?= $row['deskripsi'] ?></td>
+                    <td><?= $row['nama_barang'] ?></td>
+                    <td><?= $row['nama_kategori'] ?></td>
+                    <td><?= $row['stok'] ?></td>
+                    <td><?= $row['waktu'] ?></td>
+                    <td><?= $row['nama_petugas'] ?></td>
                     <td>
                         <button type="button" class="btn btn-warning text-dark" data-coreui-toggle="modal" data-coreui-target="#editModal<?= $row['id_barang'] ?>">
                             <i class="fa-regular fa-pen-to-square"></i>
@@ -148,7 +156,7 @@ if (isset($_POST['submitDelete'])) {
                         </div>
                         <div class="mb-3">
                             <label for="id_petugas" class="form-label">Petugas</label>
-                            <input type="hidden" class="form-control" id="id_petugas" name="id_petugas" value="<?= $_SESSION['user']['id_user']; ?>">
+                            <input type="hidden" class="form-control" id="id_petugas" name="id_petugas" value="<?= $dataPetugas['id_petugas']; ?>">
                             <input type="text" class="form-control" value="<?= $_SESSION['user']['username']; ?>" readonly>
                         </div>
                     </div>
@@ -172,15 +180,36 @@ if (isset($_POST['submitDelete'])) {
                             <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_barang" value="<?= $row['id_barang'] ?>">
+                            <input type="hidden" name="id_barang" value="<?= $row['id_barang']; ?>">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama barang</label>
-                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama'] ?>">
+                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama_barang']; ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"><?= $row['deskripsi'] ?>
-                                </textarea>
+                                <label for="stok" class="form-label">Stok barang</label>
+                                <input type="number" class="form-control" id="stok" name="stok" value="<?= $row['stok']; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="waktu" class="form-label">Waktu</label>
+                                <input type="date" class="form-control" id="waktu" name="waktu" value="<?= $row['waktu']; ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_kategori" class="form-label">Kategori</label>
+                                <select class="form-select" id="id_kategori" name="id_kategori" required>
+                                    <option selected value="<?= $row['id_kategori']; ?>"><?= $row['nama_kategori']; ?></option>
+                                    <?php
+                                    foreach ($dataKategori as $kategori) :
+                                        if ($kategori['id_kategori'] != $row['id_kategori']) {
+                                            echo "<option value=\"{$kategori['id_kategori']}\"> {$kategori['nama']}</option>";
+                                        }
+                                    endforeach;
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_petugas" class="form-label">Petugas</label>
+                                <input type="hidden" class="form-control" id="id_petugas" name="id_petugas" value="<?= $dataPetugas['id_petugas']; ?>" required>
+                                <input type="text" class="form-control" value="<?= $_SESSION['user']['username']; ?>" readonly>
                             </div>
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
@@ -205,7 +234,7 @@ if (isset($_POST['submitDelete'])) {
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_barang" value="<?= $row['id_barang'] ?>">
-                            Apakah anda yakin ingin menghapus data ini?
+                            Apakah anda yakin ingin menghapus data ini? <b><?= $row['nama_barang'] ?></b>
                         </div>
                         <div class="modal-footer d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>
