@@ -19,6 +19,17 @@ class Mahasiswa extends Connect
         return mysqli_affected_rows($this->conn);
     }
 
+    public function getAllData()
+    {
+        $query = "SELECT * FROM mahasiswa";
+        $result = mysqli_query($this->conn, $query);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
     public function getDataByUserId($id)
     {
         $query = "SELECT * FROM mahasiswa Where id_user = '$id'";

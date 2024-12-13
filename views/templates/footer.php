@@ -2,8 +2,8 @@
 </div>
 
 <footer class="footer">
-    <div><a href="">Silihnah </a>© 2022 creativeLabs.</div>
-    <div class="ms-auto">Powered by&nbsp;<a href="">Silihnah.com</a></div>
+    <div>Copyright © 2022. <a href="">Silihnah </a></div>
+    <div class="ms-auto">Create with ❤︎ By <a href="">Silihnah.com</a></div>
 </footer>
 </div>
 <!-- CoreUI and necessary plugins-->

@@ -35,6 +35,23 @@ class Peminjaman extends Connect
         $idPetugas = $data['id_petugas'];
         $idStatus = $data['id_status'];
         $idPeminjaman = $data['id_peminjaman'];
+
+        $query = "SELECT id_status FROM peminjaman WHERE id_peminjaman = '$idPeminjaman'";
+        $result = mysqli_query($this->conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $lastIdStatus = $row['id_status'];
+
+        if ($lastIdStatus == 2 && ($idStatus == 1 || $idStatus == 3)) {
+            $query = "SELECT id_barang, jumlah FROM detail_peminjaman WHERE id_peminjaman = '$idPeminjaman'";
+            $result = mysqli_query($this->conn, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $idBarang = $row['id_barang'];
+                $jumlah = $row['jumlah'];
+                $query = "UPDATE barang SET stok = stok + '$jumlah' WHERE id_barang = '$idBarang'";
+                mysqli_query($this->conn, $query);
+            }
+        }
+
         $query = "UPDATE peminjaman SET id_petugas = '$idPetugas', id_status = '$idStatus' WHERE id_peminjaman = '$idPeminjaman'";
         mysqli_query($this->conn, $query);
         return mysqli_affected_rows($this->conn);
