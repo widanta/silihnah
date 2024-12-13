@@ -1,7 +1,7 @@
 <?php
 include '../../../functions/mahasiswa.php';
 $mahasiswa = new Mahasiswa();
-$data = $mahasiswa->getDataByUserId($_SESSION['id_user']);
+$data = $mahasiswa->getDataByUserId($_SESSION['user']['id_user']);
 
 if (isset($_POST['editProfile'])) {
     $mahasiswa->edit($_POST);

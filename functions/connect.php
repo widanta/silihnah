@@ -85,8 +85,8 @@ class Connect
         $lastUser = mysqli_query($this->conn, "SELECT id_user FROM user where username = '$username'");
         $dataLastUserResult = mysqli_fetch_assoc($lastUser);
         $dataLastUserId = $dataLastUserResult['id_user'];
-
-        mysqli_query($this->conn, "INSERT INTO mahasiswa VALUES(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'$dataLastUserId')");
+        
+        mysqli_query($this->conn, "INSERT INTO mahasiswa VALUES(NULL,'$dataLastUserId',NULL,NULL,NULL,NULL,NULL,NULL,NULL)");
         return mysqli_affected_rows($this->conn);
     }
 }
