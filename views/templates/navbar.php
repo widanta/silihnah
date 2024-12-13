@@ -20,10 +20,26 @@
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="dropdown-header bg-light py-2">
                         <div class="fw-semibold">Settings</div>
-                    </div><a class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="<?= BASE_URL; ?>/assets/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                        </svg> Profile</a>
+                    </div>
+                    <?php
+                    if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2) {
+                        echo "
+                        <a class='dropdown-item mt-2' href='" . BASE_URL . "/views/admin/profile/index.php'>
+                            <svg class='icon me-2'>
+                                <use xlink:href='" . BASE_URL . "/assets/vendors/@coreui/icons/svg/free.svg#cil-user'></use>
+                            </svg> Profile
+                        </a>
+                        ";
+                    } else {
+                        echo "
+                        <a class='dropdown-item mt-2' href='" . BASE_URL . "/views/mahasiswa/profile/index.php'>
+                            <svg class='icon me-2'>
+                                <use xlink:href='" . BASE_URL . "/assets/vendors/@coreui/icons/svg/free.svg#cil-user'></use>
+                            </svg> Profile
+                        </a>
+                        ";
+                    }
+                    ?>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= BASE_URL; ?>/logout.php">
                         <svg class="icon me-2">

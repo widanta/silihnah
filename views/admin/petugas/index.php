@@ -4,27 +4,6 @@ $petugas = new Petugas();
 $data = $petugas->getAllDataPetugas();
 $title = 'Petugas';
 
-// if (isset($_POST['submitCreate'])) {
-
-//     $petugas->registerPetugas($_POST['username'], $_POST['email'], $_POST['password'], $_POST['passwordConfirm'], $_POST['id_role']);
-
-//     if ($petugas) {
-//         echo "
-//         <script>
-//             alert('data berhasil ditambahkan');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     } else {
-//         echo "
-//         <script>
-//             alert('data gagal ditambahkan');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     }
-// }
-
 if (isset($_POST['submitEdit'])) {
     $petugas->edit($_POST);
     if ($petugas) {
@@ -44,30 +23,9 @@ if (isset($_POST['submitEdit'])) {
     }
 }
 
-// if (isset($_POST['submitDelete'])) {
-//     $petugas->deleteUser($_POST);
-
-//     if ($petugas) {
-//         echo "
-//         <script>
-//             alert('data berhasil dihapus');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     } else {
-//         echo "
-//         <script>
-//             alert('data gagal dihapus');
-//             document.location.href = 'index.php';
-//         </script>
-//         ";
-//     }
-// }
-
 ?>
 
 <?php include('../../templates/header.php'); ?>
-<!-- ============== Button tambah ============== -->
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col">
@@ -182,5 +140,4 @@ if (isset($_POST['submitEdit'])) {
         </div>
     <?php endforeach; ?>
 </div>
-
 <?php include('../../templates/footer.php'); ?>

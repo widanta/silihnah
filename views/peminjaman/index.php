@@ -19,12 +19,7 @@ if (isset($_POST['submit'])) {
         'jumlah' => $jumlah
     ];
 
-    // echo "<pre>";
-    // var_dump($data);
-    // die;
-    // echo "<pre>";
-
-    $peminjaman->createData($data);
+    $peminjaman->create($data);
 
     if ($peminjaman) {
         echo "
@@ -52,6 +47,20 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peminjaman Barang</title>
     <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.2.0/dist/css/coreui.min.css" rel="stylesheet">
+
+    <script>
+        function toggleInput(id) {
+            var inputNumber = document.getElementById('jumlah_' + id);
+            var buttonPinjam = document.getElementById('pinjam_' + id);
+            if (inputNumber.style.display === 'none') {
+                inputNumber.style.display = 'block';
+                buttonPinjam.innerText = 'Batal';
+            } else {
+                inputNumber.style.display = 'none';
+                buttonPinjam.innerText = 'Pilih';
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -69,15 +78,15 @@ if (isset($_POST['submit'])) {
             <div class="mb-3">
                 <label for="id_barang" class="form-label">Pilih Barang</label>
                 <div class="row">
-                    <?php foreach ($barang as $item) : ?>
+                    <?php foreach ($barang as $row) : ?>
                         <div class="col-md-4">
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= $item['nama_barang'] ?></h5>
-                                    <p class="card-text">Stok: <?= $item['stok'] ?></p>
-                                    <input type="checkbox" id="barang_<?= $item['id_barang'] ?>" name="id_barang[]" value="<?= $item['id_barang'] ?>">
-                                    <label for="barang_<?= $item['id_barang'] ?>">Pilih</label>
-                                    <input type="number" id="jumlah_<?= $item['id_barang'] ?>" name="jumlah[]" class="form-control mt-2" placeholder="Jumlah" min="1">
+                                    <h5 class="card-title"><?= $row['nama_barang'] ?></h5>
+                                    <p class="card-text">Stok: <?= $row['stok'] ?></p>
+                                    <button type="button" id="pinjam_<?= $row['id_barang'] ?>" class="btn btn-primary" onclick="toggleInput(<?= $row['id_barang'] ?>)">Pilih</button>
+                                    <input type="number" id="jumlah_<?= $row['id_barang'] ?>" name="jumlah[]" class="form-control mt-2" placeholder="Jumlah" min="1" style="display: none;">
+                                    <input type="hidden" name="id_barang[]" value="<?= $row['id_barang'] ?>">
                                 </div>
                             </div>
                         </div>
