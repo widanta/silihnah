@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 12 Des 2024 pada 14.07
+-- Waktu pembuatan: 13 Des 2024 pada 05.47
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -41,8 +41,10 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nama`, `stok`, `waktu`, `id_kategori`, `id_petugas`) VALUES
-(2, 'Cuk', 30, '2024-12-11 16:00:00', 3, 1),
-(3, 'Mouse', 3333, '2024-12-11 16:00:00', 3, 1);
+(1, 'Laptop', 90, '2024-12-12 16:00:00', 1, 1),
+(2, 'Mouse', 100, '2024-12-12 16:00:00', 1, 1),
+(3, 'Spidol', 80, '2024-12-12 16:00:00', 3, 1),
+(4, 'Gelas', 5, '2024-12-12 16:00:00', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -56,6 +58,19 @@ CREATE TABLE `detail_peminjaman` (
   `id_barang` int NOT NULL,
   `jumlah` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `detail_peminjaman`
+--
+
+INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_barang`, `jumlah`) VALUES
+(1, 1, 1, 2),
+(2, 2, 1, 8),
+(3, 2, 2, 10),
+(4, 2, 4, 1),
+(5, 2, 3, 10),
+(6, 3, 1, 5),
+(7, 4, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -74,9 +89,9 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama`, `deskripsi`) VALUES
-(3, 'Elektronik', 'kategori elektronik'),
-(5, 'scsc', 'dsav'),
-(6, 'sdvdsv', 'dsvdsvsdvdsvsd                  5     ');
+(1, 'Elektronik', 'Barang yang berhubungan dengan listrik'),
+(2, 'Pecah Belah', 'Barang yang bisa pecah'),
+(3, 'Alat Tulis', 'Barang yang berhubungan dengan alat tulis');
 
 -- --------------------------------------------------------
 
@@ -89,7 +104,7 @@ CREATE TABLE `mahasiswa` (
   `id_user` int NOT NULL,
   `nim` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `telpon` int DEFAULT NULL,
+  `telpon` varchar(13) DEFAULT NULL,
   `jenis_kelamin` enum('Laki-Laki','Perempuan') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
@@ -101,7 +116,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id_mahasiswa`, `id_user`, `nim`, `nama`, `telpon`, `jenis_kelamin`, `tanggal_lahir`, `alamat`, `agama`) VALUES
-(1, 1, '332', 'fdsvds', 222, 'Laki-Laki', '2024-12-12', 'dsvujsabcjsacbajcbasjkcbsajkcbajscbajskcbsajkbcsajkbcsajkcbsa', 'Hindu');
+(1, 3, '230030148', 'widanta nugraha', '087784793721', 'Laki-Laki', '2024-12-13', 'sac', 'Hindu'),
+(2, 4, '230030111', 'ardel', '0811111', 'Laki-Laki', '2024-12-13', 'sempidi', 'Hindu');
 
 -- --------------------------------------------------------
 
@@ -112,13 +128,21 @@ INSERT INTO `mahasiswa` (`id_mahasiswa`, `id_user`, `nim`, `nama`, `telpon`, `je
 CREATE TABLE `peminjaman` (
   `id_peminjaman` int NOT NULL,
   `id_mahasiswa` int NOT NULL,
-  `id_barang` int NOT NULL,
-  `jumlah` int NOT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_kembali` date NOT NULL,
-  `id_petugas` int NOT NULL,
-  `id_status` int NOT NULL
+  `id_petugas` int DEFAULT NULL,
+  `id_status` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_mahasiswa`, `tanggal_pinjam`, `tanggal_kembali`, `id_petugas`, `id_status`) VALUES
+(1, 1, '2024-12-13', '2024-12-14', 1, 4),
+(2, 1, '2024-12-15', '2024-12-16', 2, 4),
+(3, 1, '2024-12-17', '2024-12-18', 1, 4),
+(4, 2, '2024-12-14', '2024-12-14', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -132,6 +156,14 @@ CREATE TABLE `pengembalian` (
   `id_status` int NOT NULL,
   `id_petugas` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `pengembalian`
+--
+
+INSERT INTO `pengembalian` (`id_pengembalian`, `id_peminjaman`, `id_status`, `id_petugas`) VALUES
+(1, 1, 4, 2),
+(2, 2, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -155,7 +187,8 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id_petugas`, `id_user`, `nama`, `telpon`, `jenis_kelamin`, `tanggal_lahir`, `alamat`, `agama`) VALUES
-(1, 4, 'I Made Widanta Abdi Nugraha', '087784793721', 'Laki-Laki', '2005-04-28', 'Jalan Sulatri No 14', 'Hindu');
+(1, 1, 'Superadmin', '087784793721', 'Laki-Laki', '2024-12-13', 'sulatri', 'Hindu'),
+(2, 5, 'Petugas', '087722', 'Laki-Laki', '2024-12-13', 'Kesiman', 'Hindu');
 
 -- --------------------------------------------------------
 
@@ -219,10 +252,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `id_role`) VALUES
-(1, 'danta', 'danta@gmail.com', '$2y$10$w7Yokt4UmTZgRAoiYqTa9OqDO3br7Gg.1o/5DzK9NzJpGmTI0rwjO', 3),
-(2, 'admin', 'admin@silihnah.com', '$2y$10$WcTWpJ4e0lBDbhNA7LW4QugFA2siPSQkTEKxKUpiJ/memeQJYEPPG', 3),
-(3, 'sdvsad', 'superadmin@gmail.com', '$2y$10$wQbTewfpGSHxX1/GFMLRk.0hfxsgB.pkDP8Dr1erJX/wvTDFZ7lq2', 1),
-(4, 'tata', 'tata@gmail.com', '$2y$10$rMwYAbimZ.g6pmFxBMwCeembjY53XAgXGP042QDwwd/fMnM3BJt.q', 1);
+(1, 'superadmin', 'superadmin@gmail.com', '$2y$10$Siza94afnND8.vtH8THJc.FcdmraXWCJaI1q8Yd/6JbalLWjfdt.C', 1),
+(3, 'widanta', 'widanta@gmail.com', '$2y$10$A3pTz7gryMOsFuyKpszNx.TMXyDOIUB0RAXunrhT.ZRQRhX2rnJcy', 3),
+(4, 'ardel', 'ardel@gmail.com', '$2y$10$RQy/uVmB12Mcou9xeX/q1uELweLlK4pM7FiV7/OXgdXyAZEPxqxAK', 3),
+(5, 'petugas', 'petugas@gmail.com', '$2y$10$pFWX/OubK5bStdfRlGAqJe55v7ahcKlpO8JKpdTezHwM3HjXUp.5.', 2);
 
 --
 -- Indexes for dumped tables
@@ -263,7 +296,6 @@ ALTER TABLE `mahasiswa`
 ALTER TABLE `peminjaman`
   ADD PRIMARY KEY (`id_peminjaman`),
   ADD KEY `nim` (`id_mahasiswa`),
-  ADD KEY `id_barang` (`id_barang`),
   ADD KEY `id_petugas` (`id_petugas`),
   ADD KEY `id_mahasiswa` (`id_mahasiswa`),
   ADD KEY `id_status` (`id_status`);
@@ -317,31 +349,31 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT untuk tabel `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kategori` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mahasiswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mahasiswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id_pengembalian` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengembalian` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `petugas`
@@ -396,7 +428,6 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `peminjaman`
   ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id_petugas`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `peminjaman_ibfk_2` FOREIGN KEY (`id_barang`) REFERENCES `barang` (`id_barang`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `peminjaman_ibfk_3` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id_mahasiswa`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `peminjaman_ibfk_4` FOREIGN KEY (`id_status`) REFERENCES `status` (`id_status`) ON DELETE CASCADE ON UPDATE CASCADE;
 

@@ -1,7 +1,7 @@
 <?php
-include '../../functions/peminjaman.php';
+include '../../../functions/peminjaman.php';
 $peminjaman = new Peminjaman();
-$dataMahasiswa = $peminjaman->getDataByUserId($_SESSION['user']['id_user']);
+$dataMahasiswa = $peminjaman->getDataMahasiswaByUserId($_SESSION['user']['id_user']);
 $barang = $peminjaman->getDataBarang();
 
 if (isset($_POST['submit'])) {

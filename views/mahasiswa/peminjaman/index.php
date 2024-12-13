@@ -1,37 +1,21 @@
 <?php
 include '../../../functions/peminjaman.php';
 $peminjaman = new Peminjaman();
-$data = $peminjaman->getAllDataStatusPendding();
-$dataStatus = $peminjaman->getDataStatus();
-$dataPetugas = $peminjaman->getDataPetugasByUserId($_SESSION['user']['id_user']);
-$title = "Admin Peminjaman";
-
-if (isset($_POST['submitSetuju'])) {
-    // var_dump($_POST['submitSetuju']);
-    $peminjaman->edit($_POST);
-    if ($peminjaman) {
-        echo "
-        <script>
-            alert('data berhasil diubah');
-            document.location.href = 'index.php';
-        </script>
-        ";
-    } else {
-        echo "
-        <script>
-            alert('data gagal diubah');
-            document.location.href = 'index.php';
-        </script>
-        ";
-    }
-}
+$dataMahasiswa = $peminjaman->getDataMahasiswaByUserId($_SESSION['user']['id_user']);
+$data = $peminjaman->getDataPeminjamanMahasiswaStatusBelumById($dataMahasiswa['id_mahasiswa']);
+$title = "Mahasiswa Peminjaman";
 ?>
 
 <?php include('../../templates/header.php'); ?>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col">
-            <h3>Data Peminjaman</h3>
+            <h3>Data Barang Dipinjam</h3>
+        </div>
+        <div class="col text-end">
+            <a class="btn btn-primary" href="tambah.php">
+                Tambah
+            </a>
         </div>
     </div>
 </div>
@@ -48,7 +32,6 @@ if (isset($_POST['submitSetuju'])) {
                 <th>Jumlah Barang</th>
                 <th>Nama Petugas</th>
                 <th>Status</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -64,16 +47,6 @@ if (isset($_POST['submitSetuju'])) {
                     <td><?= $row['jumlah_barang']; ?></td>
                     <td><?= $row['nama_petugas']; ?></td>
                     <td><?= $row['nama_status']; ?></td>
-                    <td>
-                        <form action="" class="d-inline" method="post">
-                            <input type="hidden" name="id_peminjaman" value="<?= $row['id_peminjaman']; ?>">
-                            <input type="hidden" name="id_petugas" value="<?= $dataPetugas['id_petugas']; ?>">
-                            <input type="hidden" name="id_status" value="3">
-                            <button class="btn btn-success text-light" name="submitSetuju">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                        </form>
-                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
