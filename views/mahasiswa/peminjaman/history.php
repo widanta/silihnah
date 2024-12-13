@@ -37,7 +37,11 @@ $title = "Mahasiswa Peminjaman";
                     <td><?= $row['barang_dipinjam']; ?></td>
                     <td><?= $row['jumlah_barang']; ?></td>
                     <td><?= $row['nama_petugas']; ?></td>
-                    <td><?= $row['nama_status']; ?></td>
+                    <td>
+                        <span class="badge <?= $row['id_status'] == 1 ? 'text-bg-danger' : ($row['id_status'] == 2 ? 'text-bg-warning' : ($row['id_status'] == 3 ? 'text-bg-info' : ($row['id_status'] == 4 ? 'text-bg-success' : ''))); ?>">
+                            <?= $row['nama_status']; ?>
+                        </span>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

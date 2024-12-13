@@ -2,7 +2,7 @@
 </div>
 
 <footer class="footer">
-    <div>Copyright © 2022. <a href="">Silihnah </a></div>
+    <div>Copyright © 20224. <a href="">Silihnah </a></div>
     <div class="ms-auto">Create with ❤︎ By <a href="">Silihnah.com</a></div>
 </footer>
 </div>

@@ -105,16 +105,6 @@ include '../../functions/connect.php';
             </div>
         </div>
         <!-- /.col-->
-
-
-        <p>Id_User | <?= $_SESSION['user']['id_user']; ?></p>
-        <p>usename |<?= $_SESSION['user']['username']; ?></p>
-        <p>email |<?= $_SESSION['user']['email']; ?></p>
-        <p>password |<?= $_SESSION['user']['password']; ?></p>
-        <p>id_role |<?= $_SESSION['user']['id_role']; ?></p>
-
-
-
     </div>
 </div>
 <?php include('../templates/footer.php'); ?>

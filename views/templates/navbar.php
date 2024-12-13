@@ -10,7 +10,7 @@
             </svg></a>
         <ul class="header-nav ms-3">
             <li class="nav-item">
-                <a class="nav-link">
+                <a class="nav-link text-capitalize">
                     <?= $_SESSION['user']['username']; ?>
                 </a>
             </li>

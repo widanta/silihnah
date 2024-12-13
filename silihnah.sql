@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 13 Des 2024 pada 05.47
+-- Waktu pembuatan: 13 Des 2024 pada 09.41
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -70,7 +70,8 @@ INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_ba
 (4, 2, 4, 1),
 (5, 2, 3, 10),
 (6, 3, 1, 5),
-(7, 4, 1, 5);
+(7, 4, 1, 5),
+(8, 5, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -142,7 +143,8 @@ INSERT INTO `peminjaman` (`id_peminjaman`, `id_mahasiswa`, `tanggal_pinjam`, `ta
 (1, 1, '2024-12-13', '2024-12-14', 1, 4),
 (2, 1, '2024-12-15', '2024-12-16', 2, 4),
 (3, 1, '2024-12-17', '2024-12-18', 1, 4),
-(4, 2, '2024-12-14', '2024-12-14', NULL, 2);
+(4, 2, '2024-12-14', '2024-12-14', 1, 3),
+(5, 1, '2024-12-07', '2024-12-21', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -349,7 +351,7 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT untuk tabel `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_detail_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
@@ -367,7 +369,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_peminjaman` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengembalian`
