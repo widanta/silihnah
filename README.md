@@ -75,7 +75,6 @@ views
    |   |-- pengembalian
    |   |   |-- detail.php
    |   |   |-- index.php
-   |   |   |-- tambah.php
    |   |-- petugas
    |   |   |-- index.php
    |   |-- profile
@@ -84,6 +83,8 @@ views
    |   |   |-- index.php
    |   |-- user
    |   |   |-- index.php
+   |   |-- index.php
+   |   |-- laporan.php
    |-- mahasiswa
    |   |-- index.php
    |   |-- peminjaman

@@ -289,6 +289,46 @@ class Peminjaman extends Connect
         return $data;
     }
 
+    public function getLaporanPeminjaman($status = null)
+    {
+        $query = "SELECT 
+        peminjaman.id_peminjaman, 
+        peminjaman.tanggal_pinjam, 
+        peminjaman.tanggal_kembali, 
+        peminjaman.id_status, 
+        mahasiswa.nama AS nama_mahasiswa, 
+        petugas.nama AS nama_petugas, 
+        status.nama_status AS nama_status, 
+        GROUP_CONCAT(CONCAT(barang.nama, ' (', kategori.nama, ')') SEPARATOR ', ') AS barang_dipinjam,
+        GROUP_CONCAT(detail_peminjaman.jumlah SEPARATOR ', ') AS jumlah_barang
+    FROM 
+        peminjaman 
+    LEFT JOIN 
+        detail_peminjaman ON peminjaman.id_peminjaman = detail_peminjaman.id_peminjaman
+    LEFT JOIN 
+        barang ON detail_peminjaman.id_barang = barang.id_barang
+    LEFT JOIN 
+        kategori ON barang.id_kategori = kategori.id_kategori
+    LEFT JOIN 
+        mahasiswa ON peminjaman.id_mahasiswa = mahasiswa.id_mahasiswa
+    LEFT JOIN 
+        petugas ON peminjaman.id_petugas = petugas.id_petugas
+    LEFT JOIN 
+        status ON peminjaman.id_status = status.id_status";
+
+        if ($status !== null && $status !== '') {
+            $query .= " WHERE peminjaman.id_status = '$status'";
+        }
+
+        $query .= " GROUP BY peminjaman.id_peminjaman";
+        $result = mysqli_query($this->conn, $query);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+
     public function getDataStatus()
     {
         $query = "SELECT * FROM status";

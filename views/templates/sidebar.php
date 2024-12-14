@@ -101,22 +101,20 @@
                 </ul>
             </li>
             <li class="nav-title">Pengembalian</li>
-            <li class="nav-group">
-                <a class="nav-link nav-group-toggle">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/pengembalian/">
                     <div class="nav-icon d-flex justify-content-center align-item-center">
-                        <i class="fa-regular fa-folder-open"></i>
-                    </div>
-                    Master Peminjaman
+                        <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                    </div> Pengembalian
                 </a>
-                <ul class="nav-group-items compact">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/pengembalian/">
-                            <div class="nav-icon d-flex justify-content-center align-item-center">
-                                <i class="fa-solid fa-cart-flatbed-suitcase"></i>
-                            </div> Pengembalian
-                        </a>
-                    </li>
-                </ul>
+            </li>
+            <li class="nav-title">Laporan</li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASE_URL; ?>/views/admin/laporan.php">
+                    <div class="nav-icon d-flex justify-content-center align-item-center">
+                        <i class="fa-regular fa-file-pdf"></i>
+                    </div> Laporan
+                </a>
             </li>
         <?php else : ?>
             <li class="nav-item">
