@@ -3,7 +3,7 @@ include '../../../functions/peminjaman.php';
 $peminjaman = new Peminjaman();
 $dataMahasiswa = $peminjaman->getDataMahasiswaByUserId($_SESSION['user']['id_user']);
 $data = $peminjaman->getDataPeminjamanMahasiswaById($dataMahasiswa['id_mahasiswa']);
-$title = "Mahasiswa Peminjaman";
+$title = "Mahasiswa Histori Peminjaman";
 ?>
 
 <?php include('../../templates/header.php'); ?>
