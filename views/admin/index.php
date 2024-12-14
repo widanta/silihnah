@@ -1,6 +1,15 @@
 <?php
 include '../../functions/connect.php';
 $title = 'Dashboard Admin';
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/mahasiswa/';
+    </script>
+    ";
+    exit;
+}
 
 ?>
 <?php include('../templates/header.php'); ?>

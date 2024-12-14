@@ -4,11 +4,18 @@ $barang = new Barang();
 $dataKategori = $barang->getDataKategori();
 $data = $barang->getAllDataJoin();
 $dataPetugas = $barang->getDataByUserId($_SESSION['user']['id_user']);
-$title = 'Barang';
+$title = 'Admin Barang';
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/mahasiswa/';
+    </script>
+    ";
+    exit;
+}
 
 if (isset($_POST['submitCreate'])) {
-    // var_dump($_POST);
-    // die;
     $barang->create($_POST);
 
     if ($barang) {

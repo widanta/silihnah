@@ -4,15 +4,23 @@ $peminjaman = new Peminjaman();
 $data = $peminjaman->getAllData();
 $dataStatus = $peminjaman->getDataStatus();
 $dataPetugas = $peminjaman->getDataPetugasByUserId($_SESSION['user']['id_user']);
-$title = "Admin History Peminjaman";
-
+$title = "Admin Histori Peminjaman";
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/mahasiswa/';
+    </script>
+    ";
+    exit;
+}
 ?>
 
 <?php include('../../templates/header.php'); ?>
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col">
-            <h3>History Data Peminjaman Barang</h3>
+            <h3>Histori Data Peminjaman Barang</h3>
         </div>
     </div>
 </div>

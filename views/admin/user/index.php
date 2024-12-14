@@ -3,7 +3,12 @@ include '../../../functions/petugas.php';
 $petugas = new Petugas();
 $data = $petugas->getAllData();
 $dataRole = $petugas->getDataRole();
-$title = 'User';
+$title = 'Admin User';
+
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+}
 
 if (isset($_POST['submitCreate'])) {
 

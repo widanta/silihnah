@@ -6,8 +6,17 @@ $dataStatus = $peminjaman->getDataStatus();
 $dataPetugas = $peminjaman->getDataPetugasByUserId($_SESSION['user']['id_user']);
 $title = "Admin Peminjaman";
 
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/mahasiswa/';
+    </script>
+    ";
+    exit;
+}
+
 if (isset($_POST['submitSetuju'])) {
-    // var_dump($_POST['submitSetuju']);
     $peminjaman->edit($_POST);
     if ($peminjaman) {
         echo "
@@ -71,6 +80,14 @@ if (isset($_POST['submitSetuju'])) {
                             <input type="hidden" name="id_status" value="3">
                             <button class="btn btn-success text-light" name="submitSetuju">
                                 <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+                        </form>
+                        <form action="" class="d-inline" method="post">
+                            <input type="hidden" name="id_peminjaman" value="<?= $row['id_peminjaman']; ?>">
+                            <input type="hidden" name="id_petugas" value="<?= $dataPetugas['id_petugas']; ?>">
+                            <input type="hidden" name="id_status" value="1">
+                            <button class="btn btn-danger text-light" name="submitSetuju">
+                                <i class="fa-regular fa-trash-alt"></i>
                             </button>
                         </form>
                     </td>

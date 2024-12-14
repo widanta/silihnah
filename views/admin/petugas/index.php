@@ -2,8 +2,17 @@
 include '../../../functions/petugas.php';
 $petugas = new Petugas();
 $data = $petugas->getAllDataPetugas();
-$title = 'Petugas';
+$title = 'Admin Petugas';
 
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/mahasiswa/';
+    </script>
+    ";
+    exit;
+}
 if (isset($_POST['submitEdit'])) {
     $petugas->edit($_POST);
     if ($petugas) {

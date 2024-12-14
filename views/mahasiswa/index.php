@@ -1,5 +1,15 @@
 <?php
 include '../../functions/connect.php';
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 3)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/admin/';
+    </script>
+    ";
+    exit;
+}
+
 ?>
 
 <?php include('../templates/header.php'); ?>

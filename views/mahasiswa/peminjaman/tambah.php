@@ -4,6 +4,15 @@ $peminjaman = new Peminjaman();
 $dataMahasiswa = $peminjaman->getDataMahasiswaByUserId($_SESSION['user']['id_user']);
 $barang = $peminjaman->getDataBarang();
 $title = 'Mahasiswa Peminjaman';
+if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 3)) {
+    echo "
+    <script>
+        alert('Anda tidak memiliki akses untuk halaman ini');
+        window.location.href = '" . BASE_URL . "/views/admin/';
+    </script>
+    ";
+    exit;
+}
 
 if (isset($_POST['submit'])) {
     $id_mahasiswa = $dataMahasiswa['id_mahasiswa'];
