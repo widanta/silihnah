@@ -149,11 +149,20 @@ if (isset($_POST['submit'])) {
                                                 <div class="my-auto col-md-8">
                                                     <div class="card-body">
                                                         <h5 class="card-title"><?= $row['nama_barang'] ?></h5>
-                                                        <p class="card-text">Stok: <?= $row['stok'] ?></p>
-                                                        <div class="input-group">
-                                                            <button type="button" id="pinjam_<?= $row['id_barang'] ?>" class="btn btn-secondary rounded" onclick="toggleInput(<?= $row['id_barang'] ?>)">Pilih</button>
-                                                            <input type="number" id="jumlah_<?= $row['id_barang'] ?>" name="jumlah[]" class="form-control" placeholder="Jumlah" min="1" style="margin-left:-3px; display: none;">
-                                                        </div>
+                                                        <p class="card-text">
+                                                            Stok: <?= $row['stok'] ?>
+                                                            <?php if ($row['stok'] <= 5 && $row['stok'] > 0) : ?>
+                                                                <span class="text-danger fw-bold">(Stok Menipis)</span>
+                                                            <?php endif; ?>
+                                                        </p>
+                                                        <?php if ($row['stok'] == 0) : ?>
+                                                            <button class="btn btn-dark rounded disabled" disabled>Habis!</button>
+                                                        <?php else : ?>
+                                                            <div class="input-group">
+                                                                <button type="button" id="pinjam_<?= $row['id_barang'] ?>" class="btn btn-secondary rounded" onclick="toggleInput(<?= $row['id_barang'] ?>)">Pilih</button>
+                                                                <input type="number" id="jumlah_<?= $row['id_barang'] ?>" name="jumlah[]" class="form-control" placeholder="Jumlah" min="1" style="margin-left:-3px; display: none;">
+                                                            </div>
+                                                        <?php endif; ?>
                                                         <input type="hidden" name="id_barang[]" value="<?= $row['id_barang'] ?>">
                                                     </div>
                                                 </div>
