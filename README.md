@@ -70,6 +70,8 @@ views
    |   |-- mahasiswa
    |   |   |-- index.php
    |   |-- peminjaman
+   |   |   |-- status
+   |   |   |   |-- index.php
    |   |   |-- history.php
    |   |   |-- index.php
    |   |-- pengembalian

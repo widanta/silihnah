@@ -1,5 +1,6 @@
 <?php
 include '../../functions/connect.php';
+$title = 'Dashboard Mahasiswa';
 if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 3)) {
     echo "
     <script>

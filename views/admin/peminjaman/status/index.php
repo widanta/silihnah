@@ -1,8 +1,8 @@
 <?php
-include '../../../functions/role.php';
-$role = new Role();
-$data = $role->getAllData();
-$title = 'Role';
+include '../../../../functions/status.php';
+$status = new Status();
+$data = $status->getAllData();
+$title = 'Status Peminjaman';
 if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 && $_SESSION['user']['id_role'] != 2)) {
     echo "
     <script>
@@ -15,12 +15,12 @@ if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 &
 
 ?>
 
-<?php include('../../templates/header.php'); ?>
+<?php include('../../../templates/header.php'); ?>
 <!-- ============== Button tambah ============== -->
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col">
-            <h3>Role</h3>
+            <h3>status</h3>
         </div>
     </div>
 </div>
@@ -29,9 +29,8 @@ if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 &
         <thead class="table-dark">
             <tr>
                 <th>Nomor</th>
-                <th>Id_Role</th>
+                <th>Id_status</th>
                 <th>Nama</th>
-                <th>Deskripsi</th>
             </tr>
         </thead>
         <tbody>
@@ -39,13 +38,12 @@ if (!isset($_SESSION['user']['id_role']) || ($_SESSION['user']['id_role'] != 1 &
             <?php foreach ($data as $row) : ?>
                 <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $row['id_role'] ?></td>
-                    <td><?= $row['nama'] ?></td>
-                    <td><?= $row['deskripsi'] ?></td>
+                    <td><?= $row['id_status'] ?></td>
+                    <td><?= $row['nama_status'] ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 
-<?php include('../../templates/footer.php'); ?>
+<?php include('../../../templates/footer.php'); ?>
