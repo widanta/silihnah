@@ -41,7 +41,7 @@ class Peminjaman extends Connect
         $row = mysqli_fetch_assoc($result);
         $lastIdStatus = $row['id_status'];
 
-        if ($lastIdStatus == 2 && ($idStatus == 1 || $idStatus == 3)) {
+        if ($lastIdStatus == 2 && ($idStatus == 1)) {
             $query = "SELECT id_barang, jumlah FROM detail_peminjaman WHERE id_peminjaman = '$idPeminjaman'";
             $result = mysqli_query($this->conn, $query);
             while ($row = mysqli_fetch_assoc($result)) {
