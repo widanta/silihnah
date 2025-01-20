@@ -1,5 +1,16 @@
 <p align="center"><a href="https://laravel.com](https://www.php.net/" target="_blank"><img src="https://www.php.net/images/php8/logo_php8_4.svg" width="400" alt="Laravel Logo"></a></p>
 
+# Kelompok
+
+```
+$kelompok => [
+    1. I Made Widanta Abdi Nugraha 230030148 (All)
+    2. I Nyoman Restu Pranata 230030481 (HTML,CSS)
+    3. I Gede Ryan Adi Darmawan 230030503 (HTML,CSS) 
+    4. Ni luh Viona Pramudita 230030126 (My SQL)
+];
+```
+
 # Cridentilas
 
 ![preview img](/assets/img/preview.png)
